@@ -1,0 +1,4 @@
+x64/
+*.txt
+.vs/
+todosConsole.*
