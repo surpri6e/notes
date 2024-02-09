@@ -3,7 +3,7 @@
 #include <string>
 #include <list>
 
-const std::string CURRENT_VERSION = "1.0.0";
+const std::string CURRENT_VERSION = "1.1.0";
 const std::string FILE_NAME = "list.txt";
 
 enum Commands {
@@ -18,10 +18,22 @@ void requestOnNewCommand(char& _command);
 void stateUpdate(std::list<std::string>& todos);
 
 void _newTodo(std::list<std::string>& todos) {
+	std::cin.clear();
 	std::string todo = "";
 	std::cout << "Enter your todo: ";
+	if (todo.length() != 0) {
+		std::cout << "Error!" << std::endl;
+		return;
+	}
 	std::cin >> todo;
+	std::cout << std::endl;
 
+	while (std::cin.get() != '\n') {
+		std::string tmp = "";
+		std::cin >> tmp;
+		todo += " " + tmp;
+	}
+	
 	todos.push_back(todo);
 	stateUpdate(todos);
 }
@@ -73,7 +85,8 @@ int main() {
 
 	std::ifstream listIn(FILE_NAME);
 	if (!listIn.is_open()) {
-		std::cout << "Have no needed file in this directory.";
+		std::cout << "Have no needed file in this directory." << std::endl;
+		system("pause");
 		exit(100);
 	}
 
@@ -125,6 +138,12 @@ void requestOnNewCommand(char& _command) {
 	std::string command;
 	std::cout << "Enter command: ";
 	std::cin >> command;
+
+	while (std::cin.get() != '\n') {
+		std::string tmp = "";
+		std::cin >> tmp;
+		command += " " + tmp;
+	}
 	
 	if (command.length() > 1 || (command[0] != Commands::clearAll &&
 		command[0] != Commands::deleteTodo &&
@@ -149,5 +168,3 @@ void stateUpdate(std::list<std::string>& todos) {
 	}
 	listOut.close();
 }
-
-// Check on memory leak.
