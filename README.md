@@ -1,7 +1,7 @@
 # Notes
 
-In project don't use other **.dll** or **.lib** 
-Standart: **ISO C++ 14**
+- In project don't use other **.dll** or **.lib** 
+- Standart: **ISO C++Â 14**
 
 For work you need list.txt in current directory.
 
